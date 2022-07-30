@@ -1,0 +1,171 @@
+<Window
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:loading="clr-namespace:LoadingIndicators.WPF;assembly=LoadingIndicators.WPF"		
+	xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    Title="Chocolatey Intune App Creator - V 1.0 by Jannik Reinhard" Height="800" Width="1200" MinWidth="1200" MinHeight="800"
+    Style="{DynamicResource MaterialDesignWindow}" 
+    WindowStartupLocation="CenterScreen"
+    ResizeMode="CanResize"
+    TextElement.FontFamily="Roboto"
+    Background="#FF1B1A19">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/LoadingIndicators.WPF;component/Styles/LoadingWave.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/LoadingIndicators.WPF;component/Styles/LoadingThreeDots.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/LoadingIndicators.WPF;component/Styles/LoadingFlipPlane.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/LoadingIndicators.WPF;component/Styles/LoadingPulse.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/LoadingIndicators.WPF;component/Styles/LoadingDoubleBounce.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/LoadingIndicators.WPF;component/Colors.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/LoadingIndicators.WPF;component/Styles.xaml"/>
+                
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.BlueGrey.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.DeepOrange.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid Name="GridMain">
+        <Grid Panel.ZIndex="1000" Visibility="Visible">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="70" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="auto" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="0" Grid.Column="1">
+                    <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                        <Label x:Name="LableUPN" Content=""  Margin="0,0,6,0" VerticalAlignment="Top" Foreground="White" FontSize="10"/>
+                        <Label x:Name="LableTenant" Content="" Margin="0,0,3,0" VerticalAlignment="Top" Foreground="White" FontSize="10"/>
+                    </StackPanel>
+                    <Button x:Name="ButtonLogIn" BorderThickness="0" Margin="0,4,0,4" Width="auto" Height="auto" Background="#303030">
+                        <Border BorderBrush="Silver" BorderThickness="0" CornerRadius="5,5,5,5" Height="auto" Width="auto">
+                            <Image x:Name="ImgButtonLogIn" HorizontalAlignment="Center" Height="auto" Width="auto"/>
+                        </Border>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Grid>
+        <TabControl Style="{StaticResource MaterialDesignNavigatilRailTabControl}" TabStripPlacement="Top"
+            materialDesign:ShadowAssist.ShadowDepth="Depth3" 
+            materialDesign:ColorZoneAssist.Background="#FF1B1A19"
+
+            materialDesign:ColorZoneAssist.Mode="Dark"
+            materialDesign:NavigationRailAssist.SelectionCornerRadius="10 10 10 10" 
+            materialDesign:NavigationRailAssist.ShowSelectionBackground="True">
+            <materialDesign:NavigationRailAssist.FloatingContent>
+                <TextBlock Name="ImJustPushingTheHeaderToTheRight" Width="10" Visibility="Hidden" />
+            </materialDesign:NavigationRailAssist.FloatingContent>
+            <!-- Add APP-->
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Height="auto" Width="auto">
+                        <materialDesign:PackIcon Kind="ApplicationBraces" Width="24" Height="24" HorizontalAlignment="Center" />
+                        <TextBlock Text="Add App" HorizontalAlignment="Center" />
+                    </StackPanel>
+                </TabItem.Header>
+                <Grid x:Name="GridAppFinder" Visibility="Visible">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="60"/>
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
+                        <Border BorderBrush="#A19F9D" BorderThickness="1" VerticalAlignment="Center" Width="378" HorizontalAlignment="Left" Margin="10,0,0,0">
+                            <StackPanel Margin="5" Orientation="Horizontal">
+                                <TextBox x:Name="TextboxSearchBoxDevice" Margin="3 0 0 0" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Center" Width="300" Foreground="White" BorderThickness="0"/>
+                                <Button x:Name="ButtonSearchBox" Visibility="Visible" HorizontalAlignment="Right" VerticalAlignment="Center" BorderThickness="0" Margin="10,0,0,0" >
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Width="20" x:Name="ImgSearchBoxDevice" Height="18"/>
+                                    </StackPanel>
+                                </Button>
+                            </StackPanel>
+                        </Border>
+                        <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
+                            <Image Width="20" x:Name="ImgAppCount" Height="18"/>
+                            <Label x:Name="LabelAppCount" Content="0 Apps" VerticalAlignment="Center" Foreground="White"/>
+                        </StackPanel>
+                        <Button x:Name="ButtonInstallChocolatey" Visibility="Visible" HorizontalAlignment="Left" VerticalAlignment="Center" BorderThickness="0,0,0,0" Margin="10,0,0,0">
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="Add" Width="24" Height="24" HorizontalAlignment="Center" />
+                                <Label x:Name="LabelInstallChocolatey" Content="Install Chocolatey" VerticalAlignment="Center" Foreground="White"/>
+                            </StackPanel>
+                        </Button>
+                        <Label x:Name="LabelChocolateyAppId" Content="Appid: " Foreground="White" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                    </StackPanel>
+                    <DataGrid x:Name="DataGridAllApps" Margin="5,5,5,5"  Grid.Row="3" SelectionMode="Single" IsReadOnly = "True" GridLinesVisibility = "Horizontal" CanUserReorderColumns = "True"  SelectionUnit="FullRow" ColumnWidth="*" AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding AppName}"  Header="App Name" />
+                            <DataGridTextColumn Binding="{Binding AppVersion}" Header="App Version" />
+                            <DataGridTemplateColumn Header="Action">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Name="ButtonAddApp" Content="+ Add App to Intune"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+            <!-- About-->
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Height="auto" Width="auto">
+                        <materialDesign:PackIcon Kind="Information" Width="24" Height="24" HorizontalAlignment="Center" />
+                        <TextBlock Text="About" HorizontalAlignment="Center" />
+                    </StackPanel>
+                </TabItem.Header>
+                <Grid x:Name="GridAbout"  HorizontalAlignment="Stretch" Visibility="Visible">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Border Margin="0,30,30,7" BorderBrush="#A19F9D" BorderThickness="1"  Grid.Column="1" Width="200" HorizontalAlignment="Right" Height="200" VerticalAlignment="Top">
+                        <Image  x:Name="ImgBlog" HorizontalAlignment="Right"  VerticalAlignment="Top" Width="200" Height="200"  />
+                    </Border>
+                    <StackPanel>
+                        <Label x:Name="LabelToolName" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF" FontSize="36"/>
+                        <Label Content="(c) 2022 by Jannik Reinhard (MIT License)" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF"/>
+                        <TextBlock HorizontalAlignment="Left" Margin="10,30,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF">
+                            Get more information in my
+							<Hyperlink x:Name="BlogPost" NavigateUri="">blog post</Hyperlink>
+                            or via the
+							<Hyperlink x:Name="Readme" NavigateUri="">readme</Hyperlink> on git.
+                        </TextBlock>
+                        <Label Content="Check out my social media profiles:" HorizontalAlignment="Left" Margin="10,30,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF" FontSize="18"/>
+                        <StackPanel Orientation="Horizontal">
+                            <Button x:Name="ButtonAboutWordpress" Margin="20,0,0,0" BorderBrush="#A19F9D" BorderThickness="1" Grid.Column="1" HorizontalAlignment="Right" Background="#FF1B1A19">
+                                <StackPanel Orientation="Horizontal">
+                                    <Image x:Name="ImgWordpress" Width="20" Height="20"/>
+                                    <Label Content="Website" Foreground="#DDFFFFFF"/>
+                                </StackPanel>
+                            </Button>
+                            <Button x:Name="ButtonAboutTwitter" Margin="20,0,0,0" BorderBrush="#A19F9D" BorderThickness="1" Grid.Column="1" HorizontalAlignment="Right" Background="#FF1B1A19">
+                                <StackPanel Orientation="Horizontal">
+                                    <Image x:Name="ImgTwitter"  HorizontalAlignment="Right"  VerticalAlignment="Top" Width="20" Height="20"  />
+                                    <Label Content="Twitter" Foreground="#DDFFFFFF"/>
+                                </StackPanel>
+                            </Button>
+                            <Button x:Name="ButtonAboutLinkedIn" Margin="20,0,0,0" BorderBrush="#A19F9D" BorderThickness="1" Grid.Column="1" HorizontalAlignment="Right" Background="#FF1B1A19">
+                                <StackPanel Orientation="Horizontal">
+                                    <Image x:Name="ImgLinkedIn"  HorizontalAlignment="Right"  VerticalAlignment="Top" Width="20" Height="20"  />
+                                    <Label Content="LinkedIn" Foreground="#DDFFFFFF"/>
+                                </StackPanel>
+                            </Button>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+        </TabControl>
+        <loading:LoadingIndicator Margin="0,5,0,0" Name="LoadingDialog" SpeedRatio="1" Foreground="White" IsActive="True" Style="{DynamicResource LoadingIndicatorArcsRingStyle}" Visibility="Collapsed"/>
+        <materialDesign:Snackbar Name="Snackbar"  HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+    </Grid>
+</Window>
