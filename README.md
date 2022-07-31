@@ -10,6 +10,6 @@
 </p>
 
 
-With this app you can easily add a Chocolatey Win32 app in your teant. You just have to search for the app and then choose which one you want to add to your teanant. A prerequisite is that Chocolatey is installed on the computer. If you don't have this app in your teanant yet, you can add Chocolatey with one click on my app. This app will then attached as prerequisit to all other apps you create.
+Anyone who has worked with Intune and deployed an app knows that this is a bit of work. You have to download the sources, create the IntuneWin file, create the app in Intune. To simplify this I have created the Chocolatey Intune App Creator. With this application you can search within the >9,000 Chocolatey and automatically add this app to your Intune app portfolio with just one click.
 
 ![Tool View](https://github.com/JayRHa/Chocolatey-Intune-App-Creator/blob/main/.images/startpage.png)
