@@ -15,7 +15,6 @@ function Start-Init {
         [System.Reflection.Assembly]::LoadWithPartialName('presentationframework') 				          | out-null
         [System.Reflection.Assembly]::LoadFrom("$global:Path\libaries\MaterialDesignThemes.Wpf.dll")      | out-null
         [System.Reflection.Assembly]::LoadFrom("$global:Path\libaries\MaterialDesignColors.dll")          | out-null  
-        [System.Reflection.Assembly]::LoadFrom("$global:Path\libaries\LoadingIndicators.WPF.dll")       | out-null   
     }catch{
       Write-Error "Loading from dll's was not sucessfull:"
       return $false

@@ -14,7 +14,7 @@ function Set-UiActionButton{
     #App Finder
     Add-XamlEvent -object $WPFButtonSearchBox -event "Add_Click" -scriptBlock {
         Show-LoadingView
-        [System.Windows.Forms.Application]::DoEvents()
+        [System.Windows.Forms.Application]::DoEvents() 
         Set-SearchedApps
         [System.Windows.Forms.Application]::DoEvents()
         Hide-LoadingView
@@ -22,7 +22,7 @@ function Set-UiActionButton{
     } 
     Add-XamlEvent -object $WPFButtonInstallChocolatey -event "Add_Click" -scriptBlock {
         Show-LoadingView
-        [System.Windows.Forms.Application]::DoEvents()
+        [System.Windows.Forms.Application]::DoEvents() 
         Add-Chocolatey
         [System.Windows.Forms.Application]::DoEvents()
         Show-InstallChocolatey
