@@ -40,11 +40,13 @@ function Search-ChocolateyApp {
     $searchList | ForEach-Object{
         if($_ -like '*packages found.*'){return $packages}
         $objPackage = $_.Split()
-        $package = [PSCustomObject]@{
-            Name                  = $objPackage[0]
-            Version               = $objPackage[1]
-          }
-          $packages += $package
+        if(-not ($objPackage[0].trim() -eq '' -or $objPackage -like '*Validation*')){
+            $package = [PSCustomObject]@{
+                Name                  = $objPackage[0].trim()
+                Version               = $objPackage[1]
+            }
+            $packages += $package
+        }
     }
 }
 
