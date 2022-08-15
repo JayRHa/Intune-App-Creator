@@ -78,14 +78,9 @@ function Get-AuthToken {
 
  
 function Get-GraphAuthentication{
-    param( 
-        $graphScope,
-        $authHeader
-      )
-
-    if (-not (Get-Module -ListAvailable -Name 'Microsoft.Graph')) {
+    if ($null -eq (Get-Module -ListAvailable -Name 'Microsoft.Graph.Devices.CorporateManagement')) {
       try{
-        Install-Module Microsoft.Graph -Scope CurrentUser
+        Install-Module Microsoft.Graph.Devices.CorporateManagement -Scope CurrentUser
       }catch{
         Write-Error "Something went wrong during the installation of Microsoft.Graph check https://docs.microsoft.com/en-us/powershell/microsoftgraph/installation?view=graph-powershell-1.0 to install the module"
         return $false
@@ -93,8 +88,7 @@ function Get-GraphAuthentication{
     }
  
     try {
-        if($graphScope){$graphLogin = Connect-MgGraph -Scopes $graphScope -AccessToken ($authHeader.Authorization).replace('Bearer ', '')}
-        else {$graphLogin = Connect-MgGraph -AccessToken ($authHeader.Authorization).replace('Bearer ', '')}
+      $graphLogin = Connect-MgGraph -Scopes 'Application.ReadWrite.All'
       $connection = $?
     } catch {
       Write-Error "Failed to connect to MgGraph"
@@ -102,7 +96,6 @@ function Get-GraphAuthentication{
     }
 
     if(-not ($connection)) {return $false}
-    $graphLogin =  Select-MgProfile -Name "beta"
     return $true
 }
   
@@ -110,7 +103,6 @@ function Set-LoginOrLogout{
   param( 
     $userId
   )
-
     if($global:auth){
       Disconnect-MgGraph
   
@@ -121,14 +113,15 @@ function Set-LoginOrLogout{
     }
 
     $authHeader = Get-AuthToken -user $userId
-    $connectionStatus = Get-GraphAuthentication -authHeader $authHeader
+    $connectionStatus = Get-GraphAuthentication
     if(-not $connectionStatus) {
         [System.Windows.MessageBox]::Show('Login Failed')
         return $false
     }
     
     $global:auth = $true
-  
+    Write-Host Test
+    $graphLogin =  Select-MgProfile -Name "beta"
   
     $user = Get-MgContext
     $org = Get-MgOrganization

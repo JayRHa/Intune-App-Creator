@@ -7,6 +7,9 @@ Add cocolatey apps easy to intune
 Release notes:
 1.0 :
 - Init
+1.1 :
+- Only install 'Microsoft.Graph.Devices.CorporateManagement'
+- Minor changes
 #> 
 ###########################################################################################################
 ############################################ Functions ####################################################
@@ -61,7 +64,7 @@ $global:ChocolateyAppName = 'Chocolatey'
 
 # App Info
 $appName = "Chocolatey Intune App Creator"
-$appVersion = "1.0"
+$appVersion = "1.1"
 
 # Global Var
 $global:Path = $PSScriptRoot
@@ -127,7 +130,6 @@ $title = 'Authentication'
 $msg   = 'Enter your UPN:'
 $userId = [Microsoft.VisualBasic.Interaction]::InputBox($msg, $title)
 $global:messageScreen.Show()
-
 
 # Login
 $login = Set-LoginOrLogout -userId $userId

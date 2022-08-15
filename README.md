@@ -1,5 +1,5 @@
 # Chocolatey-Intune-App-Creator
-[Blog Post]()
+[Blog Post](https://jannikreinhard.com/2022/08/01/introduction-of-the-chocolatey-intune-app-creator/)
 <p align="left">
   <a href="https://twitter.com/jannik_reinhard">
     <img src="https://img.shields.io/twitter/follow/jannik_reinhard?style=social" target="_blank" />

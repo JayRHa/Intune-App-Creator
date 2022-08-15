@@ -127,10 +127,8 @@ Invoke-Expression "cmd.exe /c $chocoInstall Install $appName -y" -ErrorAction St
     $site = ($appInfo  | Where-Object {$_ -like '*Software Site*'}).Replace(" Software Site: ", "")
     $summary = ($appInfo | Where-Object {$_ -like '*Summary:*'}).Replace(" Summary: ", "")      
 
-
     Add-IntuneWin32App -FilePath $intuneWinFile.Path -DisplayName $appNameUpper -Publisher 'Chocolatey' -InformationURL $site -Description $summary -InstallCommandLine $installCommandLine -UninstallCommandLine $uninstallCommandLine -InstallExperience system -RestartBehavior suppress -DetectionRule $detectionRule -RequirementRule $requirementRule  
     
-
     $dependency = New-IntuneWin32AppDependency -ID $global:ChocolateyAppId -DependencyType "AutoInstall"
     $appId = Get-AppId -appName $appNameUpper
     Add-IntuneWin32AppDependency -ID $appId -Dependency $dependency
