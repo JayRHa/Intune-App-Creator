@@ -12,4 +12,4 @@
 
 Anyone who has worked with Intune and deployed an app knows that this is a bit of work. You have to download the sources, create the IntuneWin file, create the app in Intune. To simplify this I have created the Intune App Creator. With this application you can search within the >9,000 Chocolatey and automatically add this app to your Intune app portfolio with just one click.
 
-![Tool View](https://github.com/JayRHa/Chocolatey-Intune-App-Creator/blob/main/.images/startpage.png)
+![Tool View](https://github.com/JayRHa/Intune-App-Creator/blob/main/.images/startpage.png)

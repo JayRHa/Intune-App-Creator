@@ -33,7 +33,7 @@ function Set-UiActionButton{
 
     #About
     Add-XamlEvent -object $WPFBlogPost -event "Add_Click" -scriptBlock {Start-Process "https://jannikreinhard.com/2022/08/01/introduction-of-the-chocolatey-intune-app-creator/"} 
-    Add-XamlEvent -object $WPFReadme -event "Add_Click" -scriptBlock {Start-Process "https://github.com/JayRHa/Chocolatey-Intune-App-Creator"} 
+    Add-XamlEvent -object $WPFReadme -event "Add_Click" -scriptBlock {Start-Process "https://github.com/JayRHa/Intune-App-Creator"} 
     Add-XamlEvent -object $WPFButtonAboutWordpress -event "Add_Click" -scriptBlock {Start-Process "https://www.jannikreinhard.com"}
     Add-XamlEvent -object $WPFButtonAboutTwitter -event "Add_Click" -scriptBlock {Start-Process "https://twitter.com/jannik_reinhard"}
     Add-XamlEvent -object $WPFButtonAboutLinkedIn -event "Add_Click" -scriptBlock {Start-Process "https://www.linkedin.com/in/jannik-r/"}
