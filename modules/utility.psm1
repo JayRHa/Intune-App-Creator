@@ -20,7 +20,7 @@ function Start-Init {
       return $false
     }
 
-    try {Install-Module -Name IntuneWin32App -Confirm:$false}catch{return $false}
+    try {Install-Module -Name IntuneWin32App -Confirm:$false -scope CurrentUser}catch{return $false}
   
     # Create temp folder
     if(-not (Test-Path $global:PathSources)) {
@@ -45,8 +45,12 @@ function Get-AuthToken {
   $tenant = $userUpn.Host
   $AadModule = Get-Module -Name "AzureAD" -ListAvailable
   if ($AadModule -eq $null) {
-      Write-Host "AzureAD PowerShell module not found, looking for AzureADPreview"
-      $AadModule = Get-Module -Name "AzureADPreview" -ListAvailable
+      Install-Module AzureAD -Scope CurrentUser -Confirm:$false 
+  }
+  $AadModule = Get-Module -Name "AzureAD" -ListAvailable
+  if ($AadModule -eq $null) {
+    Write-Host "AzureAD PowerShell module not found, looking for AzureADPreview"
+    $AadModule = Get-Module -Name "AzureADPreview" -ListAvailable
   }
 
   $adal = Join-Path $AadModule.ModuleBase "Microsoft.IdentityModel.Clients.ActiveDirectory.dll"
@@ -75,14 +79,21 @@ function Get-AuthToken {
   $Global:AuthenticationHeader = $authHeader
   return $authHeader
 }
-
  
 function Get-GraphAuthentication{
     if ($null -eq (Get-Module -ListAvailable -Name 'Microsoft.Graph.Devices.CorporateManagement')) {
       try{
-        Install-Module Microsoft.Graph.Devices.CorporateManagement -Scope CurrentUser
+        Install-Module Microsoft.Graph.Devices.CorporateManagement -Scope CurrentUser -Confirm:$false 
       }catch{
-        Write-Error "Something went wrong during the installation of Microsoft.Graph check https://docs.microsoft.com/en-us/powershell/microsoftgraph/installation?view=graph-powershell-1.0 to install the module"
+        Write-Error "Something went wrong during the installation of Microsoft.Graph.Devices.CorporateManagement check https://docs.microsoft.com/en-us/powershell/microsoftgraph/installation?view=graph-powershell-1.0 to install the module"
+        return $false
+      } 
+    }
+    if ($null -eq (Get-Module -ListAvailable -Name 'Microsoft.Graph.Users')) {
+      try{
+        Install-Module Microsoft.Graph.Users -Scope CurrentUser -Confirm:$false 
+      }catch{
+        Write-Error "Something went wrong during the installation of Microsoft.Graph.Users check https://docs.microsoft.com/en-us/powershell/microsoftgraph/installation?view=graph-powershell-1.0 to install the module"
         return $false
       } 
     }
