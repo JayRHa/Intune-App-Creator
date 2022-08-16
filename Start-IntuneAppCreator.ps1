@@ -1,7 +1,7 @@
 <#
 Version: 1.0
 Author: Jannik Reinhard (jannikreinhard.com)
-Script: Start-ChocolateyIntuneAppCreator
+Script: Start-IntuneAppCreator
 Description:
 Add cocolatey apps easy to intune
 Release notes:
@@ -30,8 +30,8 @@ function Get-MessageScreen{
     $global:button1 = $global:messageScreen.FindName("ButtonMessage1")
     $global:button2 = $global:messageScreen.FindName("ButtonMessage2")
 
-    $global:messageScreenTitle.Text = "Initializing Chocolatey Intune App Creator"
-    $global:messageScreenText.Text = "Starting Chocolatey Intune App Creator"
+    $global:messageScreenTitle.Text = "Initializing Intune App Creator"
+    $global:messageScreenText.Text = "Starting Intune App Creator"
     [System.Windows.Forms.Application]::DoEvents()
     $global:messageScreen.Show() | Out-Null
     [System.Windows.Forms.Application]::DoEvents()
@@ -64,7 +64,7 @@ function Import-AllModules
 $global:ChocolateyAppName = 'Chocolatey'
 
 # App Info
-$appName = "Chocolatey Intune App Creator"
+$appName = "Intune App Creator (Unofficial)"
 $appVersion = "1.1"
 
 # Global Var
