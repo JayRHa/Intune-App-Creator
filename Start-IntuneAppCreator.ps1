@@ -80,8 +80,8 @@ $global:ChocolateyAppId = $null
 
 # Start Start Screen
 Get-MessageScreen -xamlPath ("$global:Path\xaml\message.xaml")
-$global:messageScreenTitle.Text = "Initializing Device Troubleshooter"
-$global:messageScreenText.Text = "Starting Device Troubleshooter"
+$global:messageScreenTitle.Text = "Initializing Intune App Creator"
+$global:messageScreenText.Text = "Starting Intune App Creator"
 [System.Windows.Forms.Application]::DoEvents()
 
 # Load all Modules
