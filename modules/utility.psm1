@@ -97,6 +97,14 @@ function Get-GraphAuthentication{
         return $false
       } 
     }
+    if ($null -eq (Get-Module -ListAvailable -Name 'Microsoft.Graph.Identity.DirectoryManagement')) {
+      try{
+        Install-Module Microsoft.Graph.Identity.DirectoryManagement -Scope CurrentUser -Confirm:$false 
+      }catch{
+        Write-Error "Something went wrong during the installation of Microsoft.Graph.Identity.DirectoryManagement check https://docs.microsoft.com/en-us/powershell/microsoftgraph/installation?view=graph-powershell-1.0 to install the module"
+        return $false
+      } 
+    }
  
     try {
       $graphLogin = Connect-MgGraph -Scopes 'Application.ReadWrite.All'
