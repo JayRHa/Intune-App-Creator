@@ -8,6 +8,23 @@ Core functions
 #>
 
 ##
+function Install-PSGalleryModule{
+  param
+  (
+      [Parameter(Mandatory=$true)]
+      $Module
+  )
+  if ($null -eq (Get-Module -ListAvailable -Name $Module)) {
+    try{
+      Install-Module $Module -Scope CurrentUser -Confirm:$false -Repository PSGallery -Force
+    }catch{
+      Write-Error "Something went wrong during the installation of $Module"
+      return $false
+    }
+  }
+  return $true
+}
+
 function Start-Init {
     #Load dll
     try {
@@ -20,7 +37,7 @@ function Start-Init {
       return $false
     }
 
-    try {Install-Module -Name IntuneWin32App -Confirm:$false -scope CurrentUser}catch{return $false}
+    if (-not(Install-PSGalleryModule -Module 'IntuneWin32App')){return $false}
   
     # Create temp folder
     if(-not (Test-Path $global:PathSources)) {
@@ -81,30 +98,9 @@ function Get-AuthToken {
 }
  
 function Get-GraphAuthentication{
-    if ($null -eq (Get-Module -ListAvailable -Name 'Microsoft.Graph.Devices.CorporateManagement')) {
-      try{
-        Install-Module Microsoft.Graph.Devices.CorporateManagement -Scope CurrentUser -Confirm:$false 
-      }catch{
-        Write-Error "Something went wrong during the installation of Microsoft.Graph.Devices.CorporateManagement check https://docs.microsoft.com/en-us/powershell/microsoftgraph/installation?view=graph-powershell-1.0 to install the module"
-        return $false
-      } 
-    }
-    if ($null -eq (Get-Module -ListAvailable -Name 'Microsoft.Graph.Users')) {
-      try{
-        Install-Module Microsoft.Graph.Users -Scope CurrentUser -Confirm:$false 
-      }catch{
-        Write-Error "Something went wrong during the installation of Microsoft.Graph.Users check https://docs.microsoft.com/en-us/powershell/microsoftgraph/installation?view=graph-powershell-1.0 to install the module"
-        return $false
-      } 
-    }
-    if ($null -eq (Get-Module -ListAvailable -Name 'Microsoft.Graph.Identity.DirectoryManagement')) {
-      try{
-        Install-Module Microsoft.Graph.Identity.DirectoryManagement -Scope CurrentUser -Confirm:$false 
-      }catch{
-        Write-Error "Something went wrong during the installation of Microsoft.Graph.Identity.DirectoryManagement check https://docs.microsoft.com/en-us/powershell/microsoftgraph/installation?view=graph-powershell-1.0 to install the module"
-        return $false
-      } 
-    }
+    if (-not(Install-PSGalleryModule -Module 'Microsoft.Graph.Devices.CorporateManagement')){return $false}
+    if (-not(Install-PSGalleryModule -Module 'Microsoft.Graph.Users')){return $false}
+    if (-not(Install-PSGalleryModule -Module 'Microsoft.Graph.Identity.DirectoryManagement')){return $false}
  
     try {
       $graphLogin = Connect-MgGraph -Scopes 'Application.ReadWrite.All'
@@ -139,7 +135,6 @@ function Set-LoginOrLogout{
     }
     
     $global:auth = $true
-    Write-Host Test
     $graphLogin =  Select-MgProfile -Name "beta"
   
     $user = Get-MgContext
