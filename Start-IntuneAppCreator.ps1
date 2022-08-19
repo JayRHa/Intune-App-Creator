@@ -11,6 +11,9 @@ Release notes:
 - Only install 'Microsoft.Graph.Devices.CorporateManagement'
 - Minor changes
 - Bug fixes
+1.2 :
+- Rename Tool
+- Only allow custom repositories
 #> 
 ###########################################################################################################
 ############################################ Functions ####################################################
@@ -65,7 +68,7 @@ $global:ChocolateyAppName = 'Chocolatey'
 
 # App Info
 $appName = "Intune App Creator (Unofficial)"
-$appVersion = "1.1"
+$appVersion = "1.2"
 
 # Global Var
 $global:Path = $PSScriptRoot
@@ -140,6 +143,21 @@ if($login -eq $false){
     $global:messageScreen.Hide()
     Exit 
 }
+
+# Get Custom Repository
+$global:repositoryUrl = ""
+While("" -eq $repositoryUrl){
+    $global:messageScreen.Hide()
+    [void][Reflection.Assembly]::LoadWithPartialName('Microsoft.VisualBasic')
+    $title = 'Custom chocolatey repository'
+    $msg   = 'Enter your custom chocolatey repository url (community.chocolatey.org is not allow):'
+    $repo = [Microsoft.VisualBasic.Interaction]::InputBox($msg, $title)
+    if($repo -like '*chocolatey.org*'){
+        [System.Windows.MessageBox]::Show('The chocolatey community repository is not allow.')
+    }else{$global:repositoryUrl = $repo}
+    
+}
+$global:messageScreen.Show() 
 
 # Install IntuneWinAppUtility
 $global:messageScreenText.Text = "Download IntuneWinAppUtil"

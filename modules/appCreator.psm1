@@ -24,6 +24,8 @@ function Install-Chocolatey {
     $testchoco = powershell choco -v
     if(-not($testchoco)){
         Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+        choco source remove -n=chocolatey
+        choco source add -n=customrepository -s="$global:repositoryUrl"
     }
 }
 
@@ -137,7 +139,12 @@ Invoke-Expression "cmd.exe /c $chocoInstall Install $appName -y" -ErrorAction St
 
 
 
-$global:chocolateyInstallationCommand = "Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))"
+$global:chocolateyInstallationCommand = @"
+Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+choco source remove -n=chocolatey
+choco source add -n=customrepos -s=
+"@ + '"' + $global:repositoryUrl + '"'
+
 $global:chocolateyUnInstallationCommand = @'
 $VerbosePreference = 'Continue'
 if (-not $env:ChocolateyInstall) {
