@@ -1,79 +1,61 @@
-<!-- unified-readme:start -->
+<!-- jr-brand:start -->
 <div align="center">
-
-# Intune App Creator
-
-**PowerShell tool for automated creation, packaging, and deployment preparation of Intune Win32 apps.**
-
-Package. Prepare. Deploy.
-
-[![GitHub stars](https://img.shields.io/github/stars/JayRHa/IntuneAppCreator?style=for-the-badge&logo=github&color=f4c542)](https://github.com/JayRHa/IntuneAppCreator/stargazers)
-[![GitHub forks](https://img.shields.io/github/forks/JayRHa/IntuneAppCreator?style=for-the-badge&logo=github&color=4078c0)](https://github.com/JayRHa/IntuneAppCreator/network/members)
-[![GitHub issues](https://img.shields.io/github/issues/JayRHa/IntuneAppCreator?style=for-the-badge&logo=github&color=d73a4a)](https://github.com/JayRHa/IntuneAppCreator/issues)
-[![Contributors](https://img.shields.io/github/contributors/JayRHa/IntuneAppCreator?style=for-the-badge&logo=github&color=28a745)](https://github.com/JayRHa/IntuneAppCreator/graphs/contributors)
-
-<p>
-  <a href="https://jannikreinhard.com/">Blog</a> ·
-  <a href="https://www.linkedin.com/in/jannik-r/">LinkedIn</a> ·
-  <a href="https://x.com/jannik_reinhard">X</a>
+  <a href="https://jannikreinhard.com/">
+    <img src="https://raw.githubusercontent.com/JayRHa/.github/main/assets/readme/tool.svg" alt="Jannik Reinhard — AI, Cloud and Endpoint Management" width="100%">
+  </a>
+  <h1>Intune App Creator</h1>
+  <p><strong>PowerShell tool for automated creation, packaging, and deployment preparation of Intune Win32 apps.</strong></p>
+  <p>
+  <a href="https://jannikreinhard.com/"><img src="https://img.shields.io/badge/Website-0A5FC0?style=flat-square&amp;logo=wordpress&amp;logoColor=white" alt="Website"></a>
+  <a href="https://github.com/JayRHa"><img src="https://img.shields.io/badge/GitHub-081427?style=flat-square&amp;logo=github&amp;logoColor=white" alt="GitHub"></a>
+  <a href="https://www.linkedin.com/in/jannik-r/"><img src="https://img.shields.io/badge/LinkedIn-0795FF?style=flat-square&amp;logo=linkedin&amp;logoColor=white" alt="LinkedIn"></a>
+  <a href="https://x.com/jannik_reinhard"><img src="https://img.shields.io/badge/X-081427?style=flat-square&amp;logo=x&amp;logoColor=white" alt="X"></a>
+  <a href="https://www.youtube.com/@ModernDevMgmt/featured"><img src="https://img.shields.io/badge/YouTube-0A5FC0?style=flat-square&amp;logo=youtube&amp;logoColor=white" alt="YouTube"></a>
 </p>
-
----
-
-`Endpoint Management` | `PowerShell` | `Public` | `Maintained`
-
+  <p><sub>Tool · App · CLI · PowerShell · Practical by design</sub></p>
 </div>
+<!-- jr-brand:end -->
 
-## What is this?
+## Overview
 
-Intune App Creator supports Microsoft Intune and endpoint management workflows such as automation, troubleshooting, remediation, deployment, or reporting.
+Packaging a Windows application for Microsoft Intune takes several repetitive steps. I built Intune App Creator to search the Chocolatey catalog, package an application and prepare it for Intune from one workflow.
 
-## Project Context
+[Read the original introduction on my blog](https://jannikreinhard.com/2022/08/01/introduction-of-the-chocolatey-intune-app-creator/).
 
-- Use it when Intune work should be scripted, packaged, synchronized, or made easier to repeat.
-- Most workflows start from repository assets, then move through Microsoft Graph, Intune, or device-side execution.
-- This repository is maintained as a practical project and reference asset.
+![Intune App Creator start page](assets/startpage.png)
 
-## How It Works
+## Quickstart
 
-The repository stores scripts or tooling, administrators configure or run them, Intune and Microsoft Graph apply the work, and endpoint results feed back into reports or follow-up actions.
-
-```mermaid
-flowchart LR
-    Repo[Repository assets] --> Admin[Administrator workflow]
-    Admin --> Graph[Microsoft Graph or Intune]
-    Graph --> Device[Managed endpoint]
-    Device --> Result[Detection, remediation, or report]
-    Result --> Review[Review and iterate]
-    Review --> Repo
+```powershell
+git clone https://github.com/JayRHa/IntuneAppCreator.git
+cd IntuneAppCreator
+Get-ChildItem -Recurse *.dll | Unblock-File
+.\Start-IntuneAppCreator.ps1
 ```
 
-## Quick Start
+Run the tool on Windows with PowerShell. Review every generated package and test the application with a limited Intune assignment before production deployment.
 
-1. Review the project context and workflow below.
-2. Clone the repository:
+## Repository Structure
 
-   ```bash
-   git clone https://github.com/JayRHa/IntuneAppCreator.git
-   ```
+| Path | Purpose |
+| --- | --- |
+| `Start-IntuneAppCreator.ps1` | Starts the application |
+| `modules/` | Packaging, UI and utility functions |
+| `xaml/` | WPF interface definitions |
+| `libaries/` | Required WPF libraries |
 
-3. Continue with the setup, usage, or workflow sections below.
+## License
+
+This project is available under the terms in [LICENSE](LICENSE).
+
+<!-- jr-brand-footer:start -->
 
 ---
-<!-- unified-readme:end -->
 
-# IntuneAppCreator
-[Blog Post](https://jannikreinhard.com/2022/08/01/introduction-of-the-chocolatey-intune-app-creator/)
-<p align="left">
-  <a href="https://x.com/jannik_reinhard">
-    <img src="https://img.shields.io/twitter/follow/jannik_reinhard?style=social" target="_blank" />
-  </a>
-    <a href="https://github.com/JayRHa">
-    <img src="https://img.shields.io/github/followers/JayRHa?style=social" target="_blank" />
-  </a>
-</p>
+<div align="center">
+  <p><sub>Built and maintained by <a href="https://jannikreinhard.com/">Jannik Reinhard</a> · Microsoft MVP for Security and AI Platform.</sub></p>
+  <p><a href="https://www.buymeacoffee.com/jannikreinf">Support the open-source work</a></p>
+  <p><strong>Stay healthy, Cheers Jannik</strong></p>
+</div>
 
-
-Anyone who has worked with Intune and deployed an app knows that this is a bit of work. You have to download the sources, create the IntuneWin file, create the app in Intune. To simplify this I have created the Intune App Creator. With this application you can search within the >9,000 Chocolatey and automatically add this app to your Intune app portfolio with just one click.
-
-![Tool View](https://github.com/JayRHa/IntuneAppCreator/blob/main/assets/startpage.png)
+<!-- jr-brand-footer:end -->
